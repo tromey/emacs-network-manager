@@ -89,7 +89,7 @@ with the current state of the network connection as an argument."
 				NetworkManager-path NetworkManager-interface
 				NetworkManager-state-signal
 				#'NetworkManager--signaled)))
-  (add-hook 'NetworkManager-listeners callback)
+  (add-hook 'NetworkManager--listeners callback)
   ;; Immediately run the new function with the current state.
   (funcall callback NetworkManager--was-connected))
 
@@ -97,8 +97,8 @@ with the current state of the network connection as an argument."
   "Remove CALLBACK as a network-state listener.
 
 This is the inverse of `NetworkManager-add-listener'."
-  (remove-hook 'NetworkManager-listeners callback)
-  (unless NetworkManager-listeners
+  (remove-hook 'NetworkManager--listeners callback)
+  (unless NetworkManager--listeners
     (dbus-unregister-object NetworkManager--signal-object)
     (setf NetworkManager--signal-object nil)))
 
